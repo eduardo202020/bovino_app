@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cattle Management App Navigation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4cdf20",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#152111",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative min-h-screen w-full">
+<div class="absolute inset-0 z-40 bg-black/30"></div>
+<div class="absolute left-0 top-0 z-50 flex h-full min-h-screen w-3/4 max-w-sm flex-col bg-background-light dark:bg-background-dark shadow-2xl">
+<div class="flex flex-col h-full">
+<div class="p-6 border-b border-white/10 dark:border-white/5">
+<h2 class="text-xl font-bold text-background-dark dark:text-background-light">Menú</h2>
+</div>
+<nav class="flex-grow p-4">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 rounded bg-primary/10 dark:bg-primary/20 px-4 py-3 text-base font-semibold text-primary" href="#">
+<span class="material-symbols-outlined">login</span>
+                                Ingresar
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded px-4 py-3 text-base font-medium text-background-dark/70 dark:text-background-light/70 hover:bg-primary/5 dark:hover:bg-primary/10" href="#">
+<span class="material-symbols-outlined">person_add</span>
+                                Registrarse
+                            </a>
+</li>
+</ul>
+</nav>
+<div class="p-4 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 rounded bg-primary px-4 py-3 text-base font-bold text-white transition-opacity hover:opacity-90">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                        Escanear
+                    </button>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4cdf20",
+              "background-light": "#f6f8f6",
+              "background-dark": "#152111",
+            },
+            fontFamily: {
+              display: ["Public Sans"],
+            },
+            borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          },
+        },
+      };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-black dark:text-white">
+<div class="flex h-full min-h-screen flex-col">
+<header class="sticky top-0 z-10 flex items-center justify-between border-b border-white/20 bg-background-light/80 p-4 backdrop-blur-sm dark:bg-background-dark/80">
+<button class="flex items-center justify-center">
+<span class="material-symbols-outlined text-black dark:text-white">arrow_back_ios_new</span>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold">Global Statistics</h1>
+<div class="w-8"></div>
+</header>
+<main class="flex-1 overflow-y-auto p-4">
+<section class="mb-6">
+<h2 class="mb-4 text-xl font-bold">Overall Herd Size</h2>
+<div class="rounded-lg bg-primary/10 p-6 dark:bg-primary/20">
+<p class="text-base font-medium text-black/60 dark:text-white/60">Total Cattle</p>
+<p class="text-4xl font-bold text-black dark:text-white">1,250</p>
+</div>
+</section>
+<section class="mb-6">
+<h2 class="mb-4 text-xl font-bold">Distribution by Breed</h2>
+<div class="rounded-lg border border-black/10 bg-background-light p-4 dark:border-white/10 dark:bg-background-dark">
+<div class="space-y-4">
+<div class="grid grid-cols-[80px_1fr_auto] items-center gap-3">
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Angus</span>
+<div class="h-2 w-full rounded-full bg-black/10 dark:bg-white/10">
+<div class="h-2 rounded-full bg-primary" style="width: 45%"></div>
+</div>
+<span class="text-sm font-bold">45%</span>
+</div>
+<div class="grid grid-cols-[80px_1fr_auto] items-center gap-3">
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Hereford</span>
+<div class="h-2 w-full rounded-full bg-black/10 dark:bg-white/10">
+<div class="h-2 rounded-full bg-primary" style="width: 25%"></div>
+</div>
+<span class="text-sm font-bold">25%</span>
+</div>
+<div class="grid grid-cols-[80px_1fr_auto] items-center gap-3">
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Simmental</span>
+<div class="h-2 w-full rounded-full bg-black/10 dark:bg-white/10">
+<div class="h-2 rounded-full bg-primary" style="width: 15%"></div>
+</div>
+<span class="text-sm font-bold">15%</span>
+</div>
+<div class="grid grid-cols-[80px_1fr_auto] items-center gap-3">
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Limousin</span>
+<div class="h-2 w-full rounded-full bg-black/10 dark:bg-white/10">
+<div class="h-2 rounded-full bg-primary" style="width: 10%"></div>
+</div>
+<span class="text-sm font-bold">10%</span>
+</div>
+<div class="grid grid-cols-[80px_1fr_auto] items-center gap-3">
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Other</span>
+<div class="h-2 w-full rounded-full bg-black/10 dark:bg-white/10">
+<div class="h-2 rounded-full bg-primary" style="width: 5%"></div>
+</div>
+<span class="text-sm font-bold">5%</span>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-6">
+<h2 class="mb-4 text-xl font-bold">Health Trends</h2>
+<div class="rounded-lg border border-black/10 bg-background-light p-4 dark:border-white/10 dark:bg-background-dark">
+<div class="h-48">
+<svg fill="none" height="100%" preserveAspectRatio="none" viewBox="0 0 500 200" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" id="chartGradient" x1="0" x2="0" y1="0" y2="200">
+<stop stop-color="#4cdf20" stop-opacity="0.2"></stop>
+<stop offset="1" stop-color="#4cdf20" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+<path d="M 0 150 C 41.66 150 41.66 50 83.33 50 C 125 50 125 100 166.66 100 C 208.33 100 208.33 20 250 20 C 291.66 20 291.66 180 333.33 180 C 375 180 375 80 416.66 80 C 458.33 80 458.33 130 500 130 L 500 200 L 0 200 Z" fill="url(#chartGradient)"></path>
+<path d="M 0 150 C 41.66 150 41.66 50 83.33 50 C 125 50 125 100 166.66 100 C 208.33 100 208.33 20 250 20 C 291.66 20 291.66 180 333.33 180 C 375 180 375 80 416.66 80 C 458.33 80 458.33 130 500 130" stroke="#4cdf20" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</div>
+<div class="mt-2 flex justify-between text-xs font-medium text-black/60 dark:text-white/60">
+<span>Jan</span>
+<span>Feb</span>
+<span>Mar</span>
+<span>Apr</span>
+<span>May</span>
+<span>Jun</span>
+</div>
+</div>
+</section>
+<section>
+<h2 class="mb-4 text-xl font-bold">User Demographics</h2>
+<div class="rounded-lg border border-black/10 bg-background-light p-4 dark:border-white/10 dark:bg-background-dark">
+<div class="flex h-40 items-end justify-around gap-4">
+<div class="flex flex-1 flex-col items-center gap-2">
+<div class="w-full flex-1 rounded-t bg-primary/20 dark:bg-primary/30" style="height: 70%">
+<div class="h-full w-full rounded-t bg-primary" style="height: 70%"></div>
+</div>
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Ranchers</span>
+</div>
+<div class="flex flex-1 flex-col items-center gap-2">
+<div class="w-full flex-1 rounded-t bg-primary/20 dark:bg-primary/30" style="height: 30%">
+<div class="h-full w-full rounded-t bg-primary" style="height: 30%"></div>
+</div>
+<span class="text-sm font-medium text-black/60 dark:text-white/60">Admins</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="sticky bottom-0 border-t border-black/10 bg-background-light/80 py-2 backdrop-blur-sm dark:border-white/10 dark:bg-background-dark/80">
+<nav class="flex justify-around">
+<a class="flex flex-col items-center gap-1 p-2 text-black/60 dark:text-white/60" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-xs font-medium">New Animal</span>
+</a>
+<a class="flex flex-col items-center gap-1 rounded-full bg-primary/20 p-2 px-4 text-primary dark:bg-primary/30" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-xs font-medium">Statistics</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-black/60 dark:text-white/60" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-xs font-medium">Management</span>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>

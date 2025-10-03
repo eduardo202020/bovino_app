@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cattle Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4cdf20",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#152111",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .font-display {
+            font-family: 'Public Sans', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col justify-between overflow-x-hidden">
+<div class="flex flex-col items-center pt-8 px-6">
+<div class="w-full max-w-sm">
+<div class="w-full h-64 bg-center bg-no-repeat bg-cover rounded-xl" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDt4UByMsShaPeyNkIcrqV8qIw5seEyiy7TEzAJ6XghiMOkEcuIb4RVGcONuJ9Ka-HLdluf5f4ugrRiMSJ1OYXMfe6wE_ueKKLUEK6TXeflhPffmH3Wx_-n-YD7QhTxfcFUI_DNzj_eQQE_92p1HNAZ7q8CkAJpXwyIkiUpr5Uup7cKSUByxEUKumnVN6nE_ZgW-izEzCpVn4crxGjTcYwLK-aX5gU7VTABUcgo9oVFHDKNAeSJGQL_fG4seF7NlPUF2xEp-2Bmsnk");'></div>
+</div>
+<div class="text-center mt-8">
+<h1 class="text-3xl font-bold text-background-dark dark:text-background-light">Welcome to Cattle Manager</h1>
+<p class="mt-2 text-base text-background-dark/70 dark:text-background-light/70 max-w-xs mx-auto">
+                    Streamline your cattle management with our intuitive app. Track, identify, and manage your herd efficiently.
+                </p>
+</div>
+</div>
+<div class="w-full px-6 pb-8 space-y-4">
+<a class="block w-full text-center py-3 px-5 rounded-lg bg-primary text-background-dark font-bold text-lg shadow-lg transform hover:scale-105 transition-transform" href="#">
+                Login
+            </a>
+<a class="block w-full text-center py-3 px-5 rounded-lg bg-primary/20 dark:bg-primary/30 text-background-dark dark:text-background-light font-bold text-lg transform hover:scale-105 transition-transform" href="#">
+                Register
+            </a>
+</div>
+</div>
+
+</body></html>

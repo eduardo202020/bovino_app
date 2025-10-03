@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cattle Stats</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Public+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4cdf20",
+            "background-light": "#f6f8f6",
+            "background-dark": "#152111",
+          },
+          fontFamily: {
+            "display": ["Public Sans"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .font-display { font-family: "Public Sans", sans-serif; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="min-h-screen">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center p-4">
+<button class="p-2 -ml-2 text-gray-700 dark:text-gray-300">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+</svg>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold text-gray-900 dark:text-white pr-8">Estadísticas</h1>
+</div>
+</header>
+<main class="p-4 space-y-6">
+<section class="grid grid-cols-2 gap-4">
+<div class="col-span-2 bg-white dark:bg-background-dark/50 rounded-lg p-4 text-center">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total de animales</p>
+<p class="text-3xl font-bold text-gray-900 dark:text-white">120</p>
+</div>
+<div class="bg-white dark:bg-background-dark/50 rounded-lg p-4 text-center">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Edad promedio</p>
+<p class="text-xl font-bold text-gray-900 dark:text-white">3.5 años</p>
+</div>
+<div class="bg-white dark:bg-background-dark/50 rounded-lg p-4 text-center">
+<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Saludable</p>
+<p class="text-xl font-bold text-primary">90%</p>
+</div>
+</section>
+<section class="bg-white dark:bg-background-dark/50 rounded-lg p-4 space-y-4">
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Distribución por edad</h2>
+<div class="grid grid-cols-4 gap-4 items-end h-48 px-2">
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-t-sm" style="height: 65%;">
+<div class="h-full w-full bg-primary rounded-t-sm"></div>
+</div>
+<p class="text-xs font-medium text-gray-500 dark:text-gray-400">0-2</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-t-sm" style="height: 80%;">
+<div class="h-full w-full bg-primary rounded-t-sm"></div>
+</div>
+<p class="text-xs font-medium text-gray-500 dark:text-gray-400">2-4</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-t-sm" style="height: 45%;">
+<div class="h-full w-full bg-primary rounded-t-sm"></div>
+</div>
+<p class="text-xs font-medium text-gray-500 dark:text-gray-400">4-6</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-t-sm" style="height: 30%;">
+<div class="h-full w-full bg-primary rounded-t-sm"></div>
+</div>
+<p class="text-xs font-medium text-gray-500 dark:text-gray-400">6+</p>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-background-dark/50 rounded-lg p-4 space-y-4">
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">Estado de salud</h2>
+<div class="space-y-3">
+<div class="space-y-1">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-gray-600 dark:text-gray-300">Saludable</span>
+<span class="text-gray-500 dark:text-gray-400">90%</span>
+</div>
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-gray-600 dark:text-gray-300">En tratamiento</span>
+<span class="text-gray-500 dark:text-gray-400">8%</span>
+</div>
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 8%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-gray-600 dark:text-gray-300">Enfermo</span>
+<span class="text-gray-500 dark:text-gray-400">2%</span>
+</div>
+<div class="w-full bg-primary/20 dark:bg-primary/30 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 2%"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+</body></html>
