@@ -118,7 +118,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Simular validación de credenciales
-      if (email === 'admin@cattle.com' && password === 'admin123') {
+      if (email === 'admin@gmail.com' && password === 'admin123') {
         const user: User = {
           id: '1',
           email: email,
@@ -126,7 +126,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           role: 'admin',
         };
         dispatch({ type: 'AUTH_SUCCESS', payload: user });
-      } else if (email === 'rancher@cattle.com' && password === 'rancher123') {
+      } else if (email === 'ganadero@gmail.com' && password === 'ganadero123') {
         const user: User = {
           id: '2',
           email: email,
