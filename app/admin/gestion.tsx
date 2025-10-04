@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   ScrollView,
@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 export default function AdminGestionScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState<'users' | 'animals'>('users');
   const [searchText, setSearchText] = useState('');
 
@@ -114,12 +114,13 @@ export default function AdminGestionScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
+          style={styles.menuButton}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         >
-          <MaterialIcons name="arrow-back" size={24} color="#374151" />
+          <MaterialIcons name="menu" size={24} color="#374151" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Management</Text>
+        <Text style={styles.headerTitle}>Gestión</Text>
+        <View style={styles.headerSpacer} />
       </View>
 
       {/* Tab Selector */}
@@ -139,7 +140,7 @@ export default function AdminGestionScreen() {
               activeTab === 'users' && styles.activeTabText,
             ]}
           >
-            Users
+            Usuarios
           </Text>
         </TouchableOpacity>
 
@@ -158,7 +159,7 @@ export default function AdminGestionScreen() {
               activeTab === 'animals' && styles.activeTabText,
             ]}
           >
-            Animals
+            Animales
           </Text>
         </TouchableOpacity>
       </View>
@@ -293,22 +294,26 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 50,
     paddingBottom: 16,
     backgroundColor: 'rgba(246, 248, 246, 0.8)',
   },
-  backButton: {
-    padding: 8,
-    marginLeft: -8,
+  menuButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#152111',
-    flex: 1,
-    textAlign: 'center',
-    paddingRight: 32,
+  },
+  headerSpacer: {
+    width: 40,
   },
   tabContainer: {
     flexDirection: 'row',

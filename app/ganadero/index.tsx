@@ -1,6 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from 'expo-router';
+import React, { useCallback } from 'react';
 import {
+  BackHandler,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,14 +12,35 @@ import {
 } from 'react-native';
 
 export default function GanaderoIndex() {
+  const navigation = useNavigation();
+
+  // Prevenir navegación hacia atrás
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Evitar que el usuario regrese a la pantalla de "Redirigiendo"
+        return true; // Bloquea la acción del botón atrás
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress
+      );
+      return () => subscription.remove();
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.menuButton}>
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        >
           <MaterialIcons name="menu" size={24} color="#152111" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Dashboard</Text>
+        <Text style={styles.headerTitle}>Tablero</Text>
         <View style={styles.headerSpacer} />
       </View>
 
@@ -24,24 +48,24 @@ export default function GanaderoIndex() {
         {/* Statistics Cards */}
         <View style={styles.statsContainer}>
           <View style={styles.statsCard}>
-            <Text style={styles.statsLabel}>Total Cattle</Text>
+            <Text style={styles.statsLabel}>Total de Ganado</Text>
             <Text style={styles.statsValue}>150</Text>
           </View>
 
           <View style={styles.statsCard}>
-            <Text style={styles.statsLabel}>Recent Registrations</Text>
+            <Text style={styles.statsLabel}>Registros Recientes</Text>
             <Text style={styles.statsValue}>10</Text>
           </View>
 
           <View style={[styles.statsCard, styles.alertCard]}>
-            <Text style={styles.alertLabel}>Health Alerts</Text>
+            <Text style={styles.alertLabel}>Alertas de Salud</Text>
             <Text style={styles.alertValue}>2</Text>
           </View>
         </View>
 
         {/* Quick Actions */}
         <View style={styles.actionsSection}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
+          <Text style={styles.sectionTitle}>Acciones Rápidas</Text>
 
           <TouchableOpacity style={styles.primaryButton}>
             <MaterialIcons name="pets" size={20} color="#152111" />
@@ -66,7 +90,7 @@ export default function GanaderoIndex() {
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
           <MaterialIcons name="grass" size={30} color="#4cdf20" />
-          <Text style={styles.activeNavText}>Dashboard</Text>
+          <Text style={styles.activeNavText}>Tablero</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem}>
@@ -93,9 +117,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 8,
+    paddingTop: 50,
+    paddingBottom: 16,
     backgroundColor: '#f6f8f6',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.05)',
   },
   menuButton: {
     padding: 8,

@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   ScrollView,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 export default function AdminEstadisticasScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
 
   // Datos globales simulados
   const globalStats = {
@@ -41,22 +41,23 @@ export default function AdminEstadisticasScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
+          style={styles.menuButton}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         >
-          <MaterialIcons name="arrow-back" size={24} color="#374151" />
+          <MaterialIcons name="menu" size={24} color="#374151" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Global Statistics</Text>
+        <Text style={styles.headerTitle}>Estadísticas Globales</Text>
+        <View style={styles.headerSpacer} />
       </View>
 
       <ScrollView style={styles.main} showsVerticalScrollIndicator={false}>
         {/* Overview Stats */}
         <View style={styles.overviewSection}>
-          <Text style={styles.sectionTitle}>Global Overview</Text>
+          <Text style={styles.sectionTitle}>Vista General Global</Text>
 
           <View style={styles.statsGrid}>
             <View style={[styles.statsCard, styles.totalCard]}>
-              <Text style={styles.statsLabel}>Total Animals</Text>
+              <Text style={styles.statsLabel}>Total de Animales</Text>
               <Text style={styles.totalValue}>
                 {globalStats.totalAnimals.toLocaleString()}
               </Text>
@@ -64,12 +65,12 @@ export default function AdminEstadisticasScreen() {
 
             <View style={styles.statsRow}>
               <View style={[styles.statsCard, styles.halfCard]}>
-                <Text style={styles.statsLabel}>Total Users</Text>
+                <Text style={styles.statsLabel}>Total de Usuarios</Text>
                 <Text style={styles.statsValue}>{globalStats.totalUsers}</Text>
               </View>
 
               <View style={[styles.statsCard, styles.halfCard]}>
-                <Text style={styles.statsLabel}>Avg per User</Text>
+                <Text style={styles.statsLabel}>Promedio por Usuario</Text>
                 <Text style={styles.statsValue}>
                   {globalStats.averageAnimalsPerUser}
                 </Text>
@@ -80,7 +81,7 @@ export default function AdminEstadisticasScreen() {
 
         {/* System Activity */}
         <View style={styles.activitySection}>
-          <Text style={styles.sectionTitle}>System Activity</Text>
+          <Text style={styles.sectionTitle}>Actividad del Sistema</Text>
 
           <View style={styles.activityGrid}>
             <View style={styles.activityCard}>
@@ -88,7 +89,7 @@ export default function AdminEstadisticasScreen() {
               <Text style={styles.activityValue}>
                 {globalStats.systemUsage.dailyScans}
               </Text>
-              <Text style={styles.activityLabel}>Daily Scans</Text>
+              <Text style={styles.activityLabel}>Escaneos Diarios</Text>
             </View>
 
             <View style={styles.activityCard}>
@@ -96,7 +97,7 @@ export default function AdminEstadisticasScreen() {
               <Text style={styles.activityValue}>
                 {globalStats.systemUsage.weeklyRegistrations}
               </Text>
-              <Text style={styles.activityLabel}>Weekly Registrations</Text>
+              <Text style={styles.activityLabel}>Registros Semanales</Text>
             </View>
 
             <View style={styles.activityCard}>
@@ -104,21 +105,21 @@ export default function AdminEstadisticasScreen() {
               <Text style={styles.activityValue}>
                 {globalStats.systemUsage.monthlyReports}
               </Text>
-              <Text style={styles.activityLabel}>Monthly Reports</Text>
+              <Text style={styles.activityLabel}>Reportes Mensuales</Text>
             </View>
           </View>
         </View>
 
         {/* Top Breeds */}
         <View style={styles.breedsSection}>
-          <Text style={styles.sectionTitle}>Top Breeds</Text>
+          <Text style={styles.sectionTitle}>Principales Razas</Text>
 
           <View style={styles.breedsList}>
             {globalStats.topBreeds.map((breed, index) => (
               <View key={index} style={styles.breedItem}>
                 <View style={styles.breedInfo}>
                   <Text style={styles.breedName}>{breed.name}</Text>
-                  <Text style={styles.breedCount}>{breed.count} animals</Text>
+                  <Text style={styles.breedCount}>{breed.count} animales</Text>
                 </View>
 
                 <View style={styles.breedPercentage}>
@@ -140,13 +141,13 @@ export default function AdminEstadisticasScreen() {
 
         {/* Health Status */}
         <View style={styles.healthSection}>
-          <Text style={styles.sectionTitle}>Global Health Status</Text>
+          <Text style={styles.sectionTitle}>Estado de Salud Global</Text>
 
           <View style={styles.healthOverview}>
             <Text style={styles.healthPercentage}>
               {globalStats.healthyPercentage}%
             </Text>
-            <Text style={styles.healthLabel}>Overall Healthy</Text>
+            <Text style={styles.healthLabel}>Saludable en General</Text>
           </View>
 
           <View style={styles.healthList}>
@@ -187,22 +188,26 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 50,
     paddingBottom: 16,
     backgroundColor: 'rgba(246, 248, 246, 0.8)',
   },
-  backButton: {
-    padding: 8,
-    marginLeft: -8,
+  menuButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#152111',
-    flex: 1,
-    textAlign: 'center',
-    paddingRight: 32,
+  },
+  headerSpacer: {
+    width: 40,
   },
   main: {
     flex: 1,

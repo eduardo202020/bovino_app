@@ -38,9 +38,9 @@ export default function Login() {
       {/* Header */}
       <View style={styles.header}>
         <MaterialIcons name="pets" size={48} color="#4cdf20" />
-        <Text style={styles.title}>Cattle Manager</Text>
+        <Text style={styles.title}>Gestor Ganadero</Text>
         <Text style={styles.subtitle}>
-          Welcome back, please login to your account.
+          Bienvenido de nuevo, por favor inicie sesión en su cuenta.
         </Text>
       </View>
 
@@ -59,7 +59,7 @@ export default function Login() {
             />
             <TextInput
               style={styles.input}
-              placeholder="Email or Username"
+              placeholder="Correo o Usuario"
               placeholderTextColor="#546051"
               value={email}
               onChangeText={setEmail}
@@ -78,7 +78,7 @@ export default function Login() {
             />
             <TextInput
               style={styles.input}
-              placeholder="Password"
+              placeholder="Contraseña"
               placeholderTextColor="#546051"
               value={password}
               onChangeText={setPassword}
@@ -88,7 +88,9 @@ export default function Login() {
 
           {/* Forgot Password */}
           <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            <Text style={styles.forgotPasswordText}>
+              ¿Olvidaste tu contraseña?
+            </Text>
           </TouchableOpacity>
 
           {/* Login Button */}
@@ -103,20 +105,20 @@ export default function Login() {
             {isLoading ? (
               <ActivityIndicator size="small" color="#152111" />
             ) : (
-              <Text style={styles.loginButtonText}>Login</Text>
+              <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
             )}
           </TouchableOpacity>
 
           {/* Divider */}
           <View style={styles.divider}>
             <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OR</Text>
+            <Text style={styles.dividerText}>O</Text>
             <View style={styles.dividerLine} />
           </View>
 
           {/* Google Login Button */}
           <TouchableOpacity style={styles.googleButton}>
-            <Text style={styles.googleButtonText}>Login with Google</Text>
+            <Text style={styles.googleButtonText}>Iniciar con Google</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -124,8 +126,8 @@ export default function Login() {
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Don&apos;t have an account?{' '}
-          <Text style={styles.signUpLink}>Sign Up</Text>
+          Aún no tienes cuenta?{' '}
+          <Text style={styles.signUpLink}>Regístrate</Text>
         </Text>
       </View>
     </View>
@@ -152,6 +154,10 @@ const styles = StyleSheet.create({
     color: '#546051',
     marginTop: 4,
     textAlign: 'center',
+    maxWidth: 280,
+    paddingHorizontal: 20,
+    lineHeight: 20,
+    fontSize: 14,
   },
   main: {
     flex: 1,

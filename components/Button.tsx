@@ -49,8 +49,8 @@ export default function Button({
   loading = false,
   icon,
 }: ButtonProps) {
-  const getButtonStyle = () => {
-    let baseStyle = [styles.button];
+  const getButtonStyle = (): any[] => {
+    let baseStyle: any[] = [styles.button];
 
     // Variantes
     switch (variant) {
@@ -86,8 +86,8 @@ export default function Button({
     return baseStyle;
   };
 
-  const getTextStyle = () => {
-    let baseStyle = [styles.buttonText];
+  const getTextStyle = (): any[] => {
+    let baseStyle: any[] = [styles.buttonText];
 
     // Colores según variante
     switch (variant) {

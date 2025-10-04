@@ -21,17 +21,17 @@ export default function Register() {
         <TouchableOpacity style={styles.backButton}>
           <MaterialIcons name="arrow-back-ios" size={24} color="#152111" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Register</Text>
+        <Text style={styles.headerTitle}>Registrarse</Text>
         <View style={styles.headerSpacer} />
       </View>
 
       {/* Main Form */}
       <View style={styles.main}>
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Full Name</Text>
+          <Text style={styles.label}>Nombre Completo</Text>
           <TextInput
             style={styles.input}
-            placeholder="John Doe"
+            placeholder="Juan Pérez"
             placeholderTextColor="#6a7b6b"
             value={fullName}
             onChangeText={setFullName}
@@ -39,10 +39,10 @@ export default function Register() {
         </View>
 
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Email</Text>
+          <Text style={styles.label}>Correo Electrónico</Text>
           <TextInput
             style={styles.input}
-            placeholder="john.doe@example.com"
+            placeholder="juan.perez@ejemplo.com"
             placeholderTextColor="#6a7b6b"
             value={email}
             onChangeText={setEmail}
@@ -52,10 +52,10 @@ export default function Register() {
         </View>
 
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Password</Text>
+          <Text style={styles.label}>Contraseña</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your password"
+            placeholder="Ingresa tu contraseña"
             placeholderTextColor="#6a7b6b"
             value={password}
             onChangeText={setPassword}
@@ -64,10 +64,10 @@ export default function Register() {
         </View>
 
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Confirm Password</Text>
+          <Text style={styles.label}>Confirmar Contraseña</Text>
           <TextInput
             style={styles.input}
-            placeholder="Confirm your password"
+            placeholder="Confirma tu contraseña"
             placeholderTextColor="#6a7b6b"
             value={confirmPassword}
             onChangeText={setConfirmPassword}
@@ -76,15 +76,15 @@ export default function Register() {
         </View>
 
         <TouchableOpacity style={styles.registerButton}>
-          <Text style={styles.registerButtonText}>Register</Text>
+          <Text style={styles.registerButtonText}>Registrarse</Text>
         </TouchableOpacity>
       </View>
 
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Already have an account?{' '}
-          <Text style={styles.signInLink}>Sign in</Text>
+          ¿Ya tienes una cuenta?{' '}
+          <Text style={styles.signInLink}>Iniciar Sesión</Text>
         </Text>
       </View>
     </View>

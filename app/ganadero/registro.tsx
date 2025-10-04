@@ -1,8 +1,10 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   Alert,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,16 +14,26 @@ import {
 } from 'react-native';
 
 export default function RegistroScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
   const [animalName, setAnimalName] = useState('');
   const [breed, setBreed] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
   const [rfidTag, setRfidTag] = useState('');
 
+  const onDateChange = (event: any, selectedDate: Date | undefined) => {
+    const currentDate = selectedDate || dateOfBirth;
+    setShowDatePicker(Platform.OS === 'ios');
+    setDateOfBirth(currentDate);
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('es-ES');
+  };
+
   const handleStartScan = () => {
     setIsScanning(true);
-    // Simular escaneo RFID
     setTimeout(() => {
       setRfidTag('E200001234567890');
       setIsScanning(false);
@@ -30,104 +42,103 @@ export default function RegistroScreen() {
   };
 
   const handleSaveAnimal = () => {
-    if (!animalName || !breed || !dateOfBirth) {
+    if (!animalName || !breed) {
       Alert.alert('Error', 'Por favor completa todos los campos');
       return;
     }
 
-    // Aquí se guardaría el animal en la base de datos
     Alert.alert(
       'Animal Registrado',
       `${animalName} ha sido registrado exitosamente`,
-      [{ text: 'OK', onPress: () => router.back() }]
+      [{ text: 'OK', onPress: () => navigation.goBack() }]
     );
   };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
+          style={styles.menuButton}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         >
-          <MaterialIcons name="arrow-back" size={24} color="#152111" />
+          <MaterialIcons name="menu" size={24} color="#152111" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Register New Animal</Text>
+        <Text style={styles.headerTitle}>Registrar Nuevo Animal</Text>
         <View style={styles.headerSpacer} />
       </View>
 
-      <ScrollView style={styles.main} showsVerticalScrollIndicator={false}>
-        {/* Form */}
+      <ScrollView style={styles.main}>
         <View style={styles.form}>
           <View style={styles.formGroup}>
-            <Text style={styles.label}>Animal Name</Text>
+            <Text style={styles.label}>Nombre del Animal</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter name"
-              placeholderTextColor="#6b7280"
+              placeholder="Ingrese el nombre"
               value={animalName}
               onChangeText={setAnimalName}
             />
           </View>
 
           <View style={styles.formGroup}>
-            <Text style={styles.label}>Breed</Text>
+            <Text style={styles.label}>Raza</Text>
             <TextInput
               style={styles.input}
-              placeholder="e.g., Angus"
-              placeholderTextColor="#6b7280"
+              placeholder="ej. Angus"
               value={breed}
               onChangeText={setBreed}
             />
           </View>
 
           <View style={styles.formGroup}>
-            <Text style={styles.label}>Date of Birth</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="YYYY-MM-DD"
-              placeholderTextColor="#6b7280"
-              value={dateOfBirth}
-              onChangeText={setDateOfBirth}
-            />
+            <Text style={styles.label}>Fecha de Nacimiento</Text>
+            <TouchableOpacity
+              style={styles.dateInput}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <Text style={styles.dateText}>{formatDate(dateOfBirth)}</Text>
+              <MaterialIcons name="calendar-today" size={20} color="#6b7280" />
+            </TouchableOpacity>
           </View>
+
+          {showDatePicker && (
+            <DateTimePicker
+              value={dateOfBirth}
+              mode="date"
+              display="default"
+              onChange={onDateChange}
+              maximumDate={new Date()}
+            />
+          )}
         </View>
 
-        {/* RFID Scanner Section */}
         <View style={styles.scannerSection}>
-          <View style={styles.scannerIcon}>
-            <MaterialIcons name="nfc" size={48} color="#4cdf20" />
-          </View>
-
-          <Text style={styles.scannerTitle}>Scan RFID Tag</Text>
+          <MaterialIcons name="nfc" size={48} color="#4cdf20" />
+          <Text style={styles.scannerTitle}>Escanear Etiqueta RFID</Text>
           <Text style={styles.scannerDescription}>
-            Connect your Bluetooth reader and scan the animal's RFID tag to link
-            it.
+            Conecte su lector y escanee la etiqueta RFID del animal
           </Text>
 
           {rfidTag ? (
             <View style={styles.tagDetected}>
-              <Text style={styles.tagText}>Tag Detectado: {rfidTag}</Text>
+              <Text style={styles.tagText}>Tag: {rfidTag}</Text>
             </View>
           ) : null}
 
           <TouchableOpacity
-            style={[styles.scanButton, isScanning && styles.scanButtonActive]}
+            style={styles.scanButton}
             onPress={handleStartScan}
             disabled={isScanning}
           >
             <Text style={styles.scanButtonText}>
-              {isScanning ? 'Escaneando...' : 'Start Scan'}
+              {isScanning ? 'Escaneando...' : 'Iniciar Escaneo'}
             </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
 
-      {/* Footer */}
       <View style={styles.footer}>
         <TouchableOpacity style={styles.saveButton} onPress={handleSaveAnimal}>
-          <Text style={styles.saveButtonText}>Save Animal</Text>
+          <Text style={styles.saveButtonText}>Guardar Animal</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -135,135 +146,95 @@ export default function RegistroScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f6f8f6',
-  },
+  container: { flex: 1, backgroundColor: '#f6f8f6' },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 50,
     paddingBottom: 16,
   },
-  backButton: {
+  menuButton: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
-    backgroundColor: 'rgba(76, 223, 32, 0.1)',
   },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#152111',
-    flex: 1,
-    textAlign: 'center',
-  },
-  headerSpacer: {
-    width: 40,
-  },
-  main: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
+  headerTitle: { fontSize: 18, fontWeight: 'bold', color: '#152111' },
+  headerSpacer: { width: 40 },
+  main: { flex: 1, paddingHorizontal: 16 },
   form: {
-    marginBottom: 32,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 20,
   },
-  formGroup: {
-    marginBottom: 16,
-  },
+  formGroup: { marginBottom: 20 },
   label: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 16,
+    fontWeight: 'bold',
     color: '#152111',
     marginBottom: 8,
   },
   input: {
-    backgroundColor: 'rgba(76, 223, 32, 0.1)',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
     borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    padding: 14,
     fontSize: 16,
-    color: '#152111',
-    borderWidth: 0,
+    backgroundColor: '#f9fafb',
   },
+  dateInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 8,
+    padding: 14,
+    backgroundColor: '#f9fafb',
+  },
+  dateText: { fontSize: 16, color: '#152111' },
   scannerSection: {
-    backgroundColor: 'rgba(76, 223, 32, 0.1)',
+    backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 24,
+    padding: 20,
     alignItems: 'center',
-    marginBottom: 24,
-  },
-  scannerIcon: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: 'rgba(76, 223, 32, 0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
   },
   scannerTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#152111',
-    marginBottom: 8,
+    marginTop: 16,
   },
   scannerDescription: {
     fontSize: 14,
     color: '#6b7280',
     textAlign: 'center',
-    marginBottom: 24,
-    lineHeight: 20,
+    marginTop: 8,
   },
   tagDetected: {
-    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+    backgroundColor: '#e7f5e7',
+    padding: 8,
     borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginBottom: 16,
+    marginTop: 16,
   },
-  tagText: {
-    color: '#10b981',
-    fontWeight: '600',
-    fontSize: 14,
-  },
+  tagText: { color: '#10b981', fontWeight: 'bold' },
   scanButton: {
-    backgroundColor: 'rgba(76, 223, 32, 0.2)',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 24,
-    width: '100%',
-  },
-  scanButtonActive: {
-    backgroundColor: 'rgba(76, 223, 32, 0.3)',
-  },
-  scanButtonText: {
-    color: '#4cdf20',
-    fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  footer: {
-    padding: 16,
-  },
-  saveButton: {
     backgroundColor: '#4cdf20',
-    paddingVertical: 16,
-    borderRadius: 12,
-    shadowColor: '#4cdf20',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 16,
   },
-  saveButtonText: {
-    color: '#152111',
-    fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
+  scanButtonText: { color: '#152111', fontWeight: 'bold' },
+  footer: { padding: 16 },
+  saveButton: {
+    backgroundColor: '#94C973',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
   },
+  saveButtonText: { color: '#152111', fontSize: 18, fontWeight: 'bold' },
 });

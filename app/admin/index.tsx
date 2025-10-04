@@ -1,7 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useRouter } from 'expo-router';
+import React, { useCallback } from 'react';
 import {
+  BackHandler,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,6 +13,23 @@ import {
 
 export default function AdminIndex() {
   const router = useRouter();
+  const navigation = useNavigation();
+
+  // Prevenir navegación hacia atrás
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // Evitar que el usuario regrese a la pantalla de "Redirigiendo"
+        return true; // Bloquea la acción del botón atrás
+      };
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress
+      );
+      return () => subscription.remove();
+    }, [])
+  );
 
   // Datos simulados para el dashboard del admin
   const overviewData = {
@@ -26,20 +45,23 @@ export default function AdminIndex() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.menuButton}>
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        >
           <MaterialIcons name="menu" size={24} color="#374151" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Dashboard</Text>
+        <Text style={styles.headerTitle}>Tablero</Text>
         <View style={styles.headerSpacer} />
       </View>
 
       <ScrollView style={styles.main} showsVerticalScrollIndicator={false}>
         {/* Global Overview */}
-        <Text style={styles.sectionTitle}>Global Overview</Text>
+        <Text style={styles.sectionTitle}>Vista General Global</Text>
 
         <View style={styles.overviewGrid}>
           <View style={styles.overviewCard}>
-            <Text style={styles.cardLabel}>Total Animals</Text>
+            <Text style={styles.cardLabel}>Total de Animales</Text>
             <View style={styles.cardValueRow}>
               <Text style={styles.cardValue}>
                 {overviewData.totalAnimals.toLocaleString()}
@@ -51,7 +73,7 @@ export default function AdminIndex() {
           </View>
 
           <View style={styles.overviewCard}>
-            <Text style={styles.cardLabel}>Active Users</Text>
+            <Text style={styles.cardLabel}>Usuarios Activos</Text>
             <View style={styles.cardValueRow}>
               <Text style={styles.cardValue}>{overviewData.activeUsers}</Text>
               <Text style={[styles.changeText, styles.positiveChange]}>
@@ -61,7 +83,7 @@ export default function AdminIndex() {
           </View>
 
           <View style={styles.overviewCard}>
-            <Text style={styles.cardLabel}>Recent Activities</Text>
+            <Text style={styles.cardLabel}>Actividades Recientes</Text>
             <View style={styles.cardValueRow}>
               <Text style={styles.cardValue}>
                 {overviewData.recentActivities}
@@ -75,7 +97,7 @@ export default function AdminIndex() {
 
         {/* Management Tools */}
         <Text style={[styles.sectionTitle, styles.managementTitle]}>
-          Management Tools
+          Herramientas de Gestión
         </Text>
 
         <View style={styles.managementTools}>
@@ -84,7 +106,7 @@ export default function AdminIndex() {
             onPress={() => router.push('./registro')}
           >
             <MaterialIcons name="add-circle" size={24} color="#4cdf20" />
-            <Text style={styles.toolButtonText}>Register New Animal</Text>
+            <Text style={styles.toolButtonText}>Registrar Nuevo Animal</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -92,7 +114,7 @@ export default function AdminIndex() {
             onPress={() => router.push('./estadisticas')}
           >
             <MaterialIcons name="trending-up" size={24} color="#4cdf20" />
-            <Text style={styles.toolButtonText}>Global Statistics</Text>
+            <Text style={styles.toolButtonText}>Estadísticas Globales</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -101,7 +123,7 @@ export default function AdminIndex() {
           >
             <MaterialIcons name="group" size={24} color="#4cdf20" />
             <Text style={styles.toolButtonText}>
-              User & Livestock Management
+              Gestión de Usuarios y Ganado
             </Text>
           </TouchableOpacity>
         </View>
@@ -111,17 +133,17 @@ export default function AdminIndex() {
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
           <MaterialIcons name="dashboard" size={24} color="#4cdf20" />
-          <Text style={styles.activeNavText}>Dashboard</Text>
+          <Text style={styles.activeNavText}>Tablero</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem}>
           <MaterialIcons name="pets" size={24} color="#6b7280" />
-          <Text style={styles.inactiveNavText}>Animals</Text>
+          <Text style={styles.inactiveNavText}>Animales</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem}>
           <MaterialIcons name="assessment" size={24} color="#6b7280" />
-          <Text style={styles.inactiveNavText}>Reports</Text>
+          <Text style={styles.inactiveNavText}>Reportes</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -138,7 +160,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingTop: 50,
+    paddingBottom: 16,
     backgroundColor: '#f6f8f6',
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(0, 0, 0, 0.1)',

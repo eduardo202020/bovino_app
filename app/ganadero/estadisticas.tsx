@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   ScrollView,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 export default function EstadisticasScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
 
   // Datos simulados para las estadísticas
   const statsData = {
@@ -35,12 +35,13 @@ export default function EstadisticasScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
+          style={styles.menuButton}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         >
-          <MaterialIcons name="arrow-back" size={24} color="#374151" />
+          <MaterialIcons name="menu" size={24} color="#374151" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Estadísticas</Text>
+        <View style={styles.headerSpacer} />
       </View>
 
       <ScrollView style={styles.main} showsVerticalScrollIndicator={false}>
@@ -126,22 +127,26 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 50,
     paddingBottom: 16,
     backgroundColor: 'rgba(246, 248, 246, 0.8)',
   },
-  backButton: {
-    padding: 8,
-    marginLeft: -8,
+  menuButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#152111',
-    flex: 1,
-    textAlign: 'center',
-    paddingRight: 32,
+  },
+  headerSpacer: {
+    width: 40,
   },
   main: {
     flex: 1,

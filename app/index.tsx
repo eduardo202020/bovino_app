@@ -1,11 +1,19 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useUser } from '../context/UserContext';
 
 export default function IndexScreen() {
   const router = useRouter();
+  const navigation = useNavigation();
   const { isAuthenticated, user, isLoading } = useUser();
 
   useEffect(() => {
@@ -49,69 +57,83 @@ export default function IndexScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header con Logo */}
-      <View style={styles.header}>
-        <MaterialIcons name="pets" size={80} color="#4cdf20" />
-        <Text style={styles.title}>Cattle Manager</Text>
-        <Text style={styles.subtitle}>
-          Sistema de identificación y gestión de ganado con tecnología RFID
-        </Text>
-      </View>
+      {/* Botón de menú flotante */}
+      <TouchableOpacity
+        style={styles.floatingMenuButton}
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+      >
+        <MaterialIcons name="menu" size={24} color="#4cdf20" />
+      </TouchableOpacity>
 
-      {/* Características principales */}
-      <View style={styles.featuresSection}>
-        <View style={styles.feature}>
-          <MaterialIcons name="nfc" size={32} color="#4cdf20" />
-          <Text style={styles.featureTitle}>Lectura RFID</Text>
-          <Text style={styles.featureDescription}>
-            Escanea tags RFID para identificar animales instantáneamente
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header con Logo */}
+        <View style={styles.header}>
+          <MaterialIcons name="pets" size={80} color="#4cdf20" />
+          <Text style={styles.title}>Gestor Ganadero</Text>
+          <Text style={styles.subtitle}>
+            Sistema de identificación y gestión de ganado con tecnología RFID
           </Text>
         </View>
 
-        <View style={styles.feature}>
-          <MaterialIcons name="bar-chart" size={32} color="#4cdf20" />
-          <Text style={styles.featureTitle}>Estadísticas</Text>
-          <Text style={styles.featureDescription}>
-            Monitorea la salud y crecimiento de tu ganado
-          </Text>
+        {/* Características principales */}
+        <View style={styles.featuresSection}>
+          <View style={styles.feature}>
+            <MaterialIcons name="nfc" size={32} color="#4cdf20" />
+            <Text style={styles.featureTitle}>Lectura RFID</Text>
+            <Text style={styles.featureDescription}>
+              Escanea tags RFID para identificar animales instantáneamente
+            </Text>
+          </View>
+
+          <View style={styles.feature}>
+            <MaterialIcons name="bar-chart" size={32} color="#4cdf20" />
+            <Text style={styles.featureTitle}>Estadísticas</Text>
+            <Text style={styles.featureDescription}>
+              Monitorea la salud y crecimiento de tu ganado
+            </Text>
+          </View>
+
+          <View style={styles.feature}>
+            <MaterialIcons name="cloud-sync" size={32} color="#4cdf20" />
+            <Text style={styles.featureTitle}>Sincronización</Text>
+            <Text style={styles.featureDescription}>
+              Datos seguros en la nube accesibles desde cualquier dispositivo
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.feature}>
-          <MaterialIcons name="cloud-sync" size={32} color="#4cdf20" />
-          <Text style={styles.featureTitle}>Sincronización</Text>
-          <Text style={styles.featureDescription}>
-            Datos seguros en la nube accesibles desde cualquier dispositivo
+        {/* Botones de acción */}
+        <View style={styles.actionsSection}>
+          <TouchableOpacity
+            style={styles.primaryButton}
+            onPress={() => router.push('/auth/login')}
+          >
+            <Text style={styles.primaryButtonText}>Iniciar Sesión</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.secondaryButton}
+            onPress={() => router.push('/auth/register')}
+          >
+            <Text style={styles.secondaryButtonText}>Registrarse</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.linkButton}>
+            <Text style={styles.linkButtonText}>¿Necesitas ayuda?</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
+            © 2024 Gestor Ganadero. Todos los derechos reservados.
           </Text>
         </View>
-      </View>
-
-      {/* Botones de acción */}
-      <View style={styles.actionsSection}>
-        <TouchableOpacity
-          style={styles.primaryButton}
-          onPress={() => router.push('/auth/login')}
-        >
-          <Text style={styles.primaryButtonText}>Iniciar Sesión</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.secondaryButton}
-          onPress={() => router.push('/auth/register')}
-        >
-          <Text style={styles.secondaryButtonText}>Registrarse</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.linkButton}>
-          <Text style={styles.linkButtonText}>¿Necesitas ayuda?</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          © 2024 Cattle Manager. Todos los derechos reservados.
-        </Text>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -224,5 +246,28 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#9ca3af',
     textAlign: 'center',
+  },
+  floatingMenuButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    zIndex: 1000,
+    backgroundColor: 'rgba(21, 33, 17, 0.8)',
+    padding: 12,
+    borderRadius: 25,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
 });
