@@ -55,9 +55,11 @@
       "reactCompiler": true
     },
     "extra": {
+      "router": {},
       "eas": {
-        "projectId": "bovino-app"
+        "projectId": "7f854eba-eb3f-4288-b5b0-48f17becb5a4"
       }
-    }
+    },
+    "owner": "jguevaral"
   }
 }
