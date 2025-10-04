@@ -9,73 +9,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { mockAdminAnimals, mockUsers } from '../../constants/mockUsers';
 
 export default function AdminGestionScreen() {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState<'users' | 'animals'>('users');
   const [searchText, setSearchText] = useState('');
 
-  // Datos simulados de usuarios
-  const users = [
-    {
-      id: '1',
-      name: 'Juan Pérez',
-      email: 'juan@example.com',
-      role: 'rancher',
-      animalsCount: 45,
-      lastActive: '2 horas',
-      status: 'active',
-    },
-    {
-      id: '2',
-      name: 'María González',
-      email: 'maria@example.com',
-      role: 'rancher',
-      animalsCount: 32,
-      lastActive: '1 día',
-      status: 'active',
-    },
-    {
-      id: '3',
-      name: 'Carlos López',
-      email: 'carlos@example.com',
-      role: 'rancher',
-      animalsCount: 28,
-      lastActive: '3 días',
-      status: 'inactive',
-    },
-  ];
-
-  // Datos simulados de animales
-  const animals = [
-    {
-      id: 'A001',
-      name: 'Bella',
-      breed: 'Angus',
-      owner: 'Juan Pérez',
-      rfidTag: 'E200001234567890',
-      status: 'healthy',
-      registeredDate: '2024-10-01',
-    },
-    {
-      id: 'A002',
-      name: 'Max',
-      breed: 'Holstein',
-      owner: 'María González',
-      rfidTag: 'E200001234567891',
-      status: 'treatment',
-      registeredDate: '2024-09-28',
-    },
-    {
-      id: 'A003',
-      name: 'Duke',
-      breed: 'Brahman',
-      owner: 'Carlos López',
-      rfidTag: 'E200001234567892',
-      status: 'healthy',
-      registeredDate: '2024-09-25',
-    },
-  ];
+  // Usar datos mock centralizados
+  const users = mockUsers;
+  const animals = mockAdminAnimals;
 
   const getStatusColor = (status: string) => {
     switch (status) {

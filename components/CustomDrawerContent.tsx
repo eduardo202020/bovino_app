@@ -48,7 +48,14 @@ export default function CustomDrawerContent(props: any) {
   };
 
   const showSettings = () => {
-    Alert.alert('Ajustes', 'Funcionalidad en desarrollo');
+    if (user?.role === 'rancher') {
+      navigateAndClose('/ganadero/ajustes');
+    } else {
+      Alert.alert(
+        'Ajustes',
+        'Funcionalidad en desarrollo para administradores'
+      );
+    }
   };
 
   const showReports = () => {

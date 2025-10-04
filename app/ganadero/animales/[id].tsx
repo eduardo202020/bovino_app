@@ -12,30 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
-interface AnimalDetail {
-  id: string;
-  name: string;
-  status: string;
-  statusColor: string;
-  image: string;
-  breed: string;
-  age: string;
-  weight: string;
-  gender: string;
-  birthDate: string;
-  vaccinations: {
-    name: string;
-    date: string;
-    status: 'completed' | 'pending';
-  }[];
-  healthRecords: {
-    date: string;
-    condition: string;
-    treatment: string;
-    vet: string;
-  }[];
-}
+import { getAnimalData } from '../../../constants/mockAnimals';
 
 export default function AnimalDetailScreen() {
   const router = useRouter();
@@ -48,85 +25,7 @@ export default function AnimalDetailScreen() {
   const [newOwner, setNewOwner] = useState('');
   const [transferReason, setTransferReason] = useState('');
 
-  // Mock data - En una app real, esto vendría de una API
-  const getAnimalData = (animalId: string): AnimalDetail => {
-    const baseAnimals: Record<string, AnimalDetail> = {
-      '12345': {
-        id: '12345',
-        name: 'Bessie',
-        status: 'Activo',
-        statusColor: '#10b981',
-        image:
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
-        breed: 'Holstein',
-        age: '3 años',
-        weight: '550 kg',
-        gender: 'Hembra',
-        birthDate: '15/03/2021',
-        vaccinations: [
-          { name: 'Fiebre aftosa', date: '01/10/2024', status: 'completed' },
-          { name: 'Brucelosis', date: '15/11/2024', status: 'pending' },
-        ],
-        healthRecords: [
-          {
-            date: '05/09/2024',
-            condition: 'Revisión rutinaria',
-            treatment: 'Ninguno',
-            vet: 'Dr. García',
-          },
-          {
-            date: '12/08/2024',
-            condition: 'Mastitis leve',
-            treatment: 'Antibióticos',
-            vet: 'Dr. Rodríguez',
-          },
-        ],
-      },
-      '67890': {
-        id: '67890',
-        name: 'Daisy',
-        status: 'Activo',
-        statusColor: '#10b981',
-        image:
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
-        breed: 'Jersey',
-        age: '2 años',
-        weight: '420 kg',
-        gender: 'Hembra',
-        birthDate: '22/07/2022',
-        vaccinations: [
-          { name: 'Fiebre aftosa', date: '01/10/2024', status: 'completed' },
-          { name: 'IBR/BVD', date: '20/11/2024', status: 'pending' },
-        ],
-        healthRecords: [
-          {
-            date: '15/09/2024',
-            condition: 'Chequeo mensual',
-            treatment: 'Vitaminas',
-            vet: 'Dr. López',
-          },
-        ],
-      },
-    };
-
-    return (
-      baseAnimals[animalId] || {
-        id: animalId,
-        name: 'Animal Desconocido',
-        status: 'Desconocido',
-        statusColor: '#6b7280',
-        image:
-          'https://via.placeholder.com/400x400/cccccc/666666?text=Sin+Imagen',
-        breed: 'N/A',
-        age: 'N/A',
-        weight: 'N/A',
-        gender: 'N/A',
-        birthDate: 'N/A',
-        vaccinations: [],
-        healthRecords: [],
-      }
-    );
-  };
+  // Usar función centralizada para obtener datos del animal
 
   const animal = getAnimalData(id as string);
 
