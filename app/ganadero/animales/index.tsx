@@ -21,8 +21,12 @@ export default function AnimalesListScreen() {
   const [breedFilter, setBreedFilter] = useState('Todas');
   const [ageFilter, setAgeFilter] = useState('Todas');
 
-  // Usar datos mock centralizados
-  const animals = mockAnimals;
+  // Usar datos mock centralizados y ordenar por fecha de registro (más recientes primero)
+  const animals = mockAnimals.sort((a, b) => {
+    const dateA = new Date(a.registrationDate || '2025-01-01T00:00:00.000Z');
+    const dateB = new Date(b.registrationDate || '2025-01-01T00:00:00.000Z');
+    return dateB.getTime() - dateA.getTime(); // Orden descendente (más reciente primero)
+  });
 
   const filteredAnimals = animals.filter((animal) => {
     // Filtro por búsqueda de texto

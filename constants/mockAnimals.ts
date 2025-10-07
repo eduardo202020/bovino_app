@@ -11,6 +11,7 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Adultos (3-5 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    registrationDate: '2025-10-01T10:00:00.000Z',
   },
   {
     id: '67890',
@@ -22,6 +23,7 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Jóvenes (1-2 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-10-02T14:30:00.000Z',
   },
   {
     id: '11111',
@@ -33,6 +35,7 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Adultos (3-5 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    registrationDate: '2025-10-03T09:15:00.000Z',
   },
   {
     id: '22222',
@@ -44,6 +47,7 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Mayores (5+ años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-10-04T16:45:00.000Z',
   },
   {
     id: '33333',
@@ -55,6 +59,7 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Adultos (3-5 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    registrationDate: '2025-10-05T11:20:00.000Z',
   },
   {
     id: '44444',
@@ -66,6 +71,7 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Jóvenes (1-2 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-10-06T08:30:00.000Z',
   },
   {
     id: '55555',
@@ -77,9 +83,34 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Adultos (3-5 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-09-28T13:45:00.000Z',
   },
   {
     id: '66666',
+    name: 'Maravilla',
+    status: 'Activo',
+    statusColor: '#10b981',
+    breed: 'Gyr',
+    age: 3,
+    ageCategory: 'Adultos (3-5 años)',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-09-30T16:20:00.000Z',
+  },
+  {
+    id: '77777',
+    name: 'Rojizo',
+    status: 'Activo',
+    statusColor: '#10b981',
+    breed: 'Senepol',
+    age: 1,
+    ageCategory: 'Jóvenes (1-2 años)',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-10-08T11:15:00.000Z',
+  },
+  {
+    id: '88888',
     name: 'Paloma',
     status: 'Activo',
     statusColor: '#10b981',
@@ -88,9 +119,10 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Adultos (3-5 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-09-25T12:30:00.000Z',
   },
   {
-    id: '77777',
+    id: '99999',
     name: 'Rayo',
     status: 'Activo',
     statusColor: '#10b981',
@@ -99,9 +131,10 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Jóvenes (1-2 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    registrationDate: '2025-09-22T14:45:00.000Z',
   },
   {
-    id: '88888',
+    id: '10101',
     name: 'Canela',
     status: 'Embarazada',
     statusColor: '#8b5cf6',
@@ -110,9 +143,10 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Adultos (3-5 años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-09-18T09:20:00.000Z',
   },
   {
-    id: '99999',
+    id: '12121',
     name: 'Diamante',
     status: 'Activo',
     statusColor: '#10b981',
@@ -121,6 +155,43 @@ export const mockAnimals: Animal[] = [
     ageCategory: 'Mayores (5+ años)',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    registrationDate: '2025-09-15T16:10:00.000Z',
+  },
+  {
+    id: '13131',
+    name: 'Tornado',
+    status: 'Activo',
+    statusColor: '#10b981',
+    breed: 'Santa Gertrudis',
+    age: 5,
+    ageCategory: 'Adultos (3-5 años)',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-09-12T08:40:00.000Z',
+  },
+  {
+    id: '14141',
+    name: 'Esperanza',
+    status: 'Activo',
+    statusColor: '#10b981',
+    breed: 'Red Angus',
+    age: 2,
+    ageCategory: 'Jóvenes (1-2 años)',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    registrationDate: '2025-09-08T13:55:00.000Z',
+  },
+  {
+    id: '15151',
+    name: 'Valiente',
+    status: 'Cuarentena',
+    statusColor: '#ef4444',
+    breed: 'Brangus',
+    age: 3,
+    ageCategory: 'Adultos (3-5 años)',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    registrationDate: '2025-09-05T10:25:00.000Z',
   },
 ];
 
@@ -240,6 +311,81 @@ export const mockAnimalDetails: Record<string, AnimalDetail> = {
         condition: 'Revisión de pezuñas',
         treatment: 'Recorte preventivo',
         vet: 'Dr. Fernández',
+      },
+    ],
+  },
+  '33333': {
+    id: '33333',
+    name: 'Capitán',
+    status: 'Activo',
+    statusColor: '#10b981',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrr7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
+    breed: 'Brahman',
+    age: '4 años',
+    weight: '720 kg',
+    gender: 'Macho',
+    birthDate: '12/04/2020',
+    vaccinations: [
+      { name: 'Fiebre aftosa', date: '01/10/2024', status: 'completed' },
+      { name: 'Brucelosis', date: '18/11/2024', status: 'pending' },
+    ],
+    healthRecords: [
+      {
+        date: '08/09/2024',
+        condition: 'Revisión rutinaria',
+        treatment: 'Desparasitación',
+        vet: 'Dr. Mendoza',
+      },
+    ],
+  },
+  '44444': {
+    id: '44444',
+    name: 'Estrella',
+    status: 'Activo',
+    statusColor: '#10b981',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    breed: 'Simmental',
+    age: '2 años',
+    weight: '480 kg',
+    gender: 'Hembra',
+    birthDate: '28/06/2022',
+    vaccinations: [
+      { name: 'Fiebre aftosa', date: '01/10/2024', status: 'completed' },
+      { name: 'IBR/BVD', date: '22/11/2024', status: 'pending' },
+    ],
+    healthRecords: [
+      {
+        date: '12/09/2024',
+        condition: 'Control de crecimiento',
+        treatment: 'Suplementos nutricionales',
+        vet: 'Dr. Silva',
+      },
+    ],
+  },
+  '77777': {
+    id: '77777',
+    name: 'Rojizo',
+    status: 'Activo',
+    statusColor: '#10b981',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDodOnlOtuSl0tl9tBAVwYqXGAf4-vpglNneeUy75IIXzsPX65MgW-HgcMwcw_Gwe0NjSR45EzfrqkL3Y_l3QKxyQoB892xalCc6l4hroPj1pQm7D1-LzuPiGNXDvevKi0IZdv0Jmtx1m7KE1e07dMaCy5B0FAFPeLKk-KFR-q1HbEpmaqd9-QYPhweVUeR_pzEDePo2SY1oJf5SmMnieQenxfi2Yag2R2fmhqZsETOxKKiIsYSpNQBjmk5cFD1UWkDmy5mUWnNvcI',
+    breed: 'Senepol',
+    age: '1 año',
+    weight: '320 kg',
+    gender: 'Macho',
+    birthDate: '15/09/2023',
+    vaccinations: [
+      { name: 'Fiebre aftosa', date: '01/10/2024', status: 'completed' },
+      { name: 'Clostridiosis', date: '28/11/2024', status: 'pending' },
+    ],
+    healthRecords: [
+      {
+        date: '18/09/2024',
+        condition: 'Primera revisión',
+        treatment: 'Vacunación básica',
+        vet: 'Dr. Castillo',
       },
     ],
   },

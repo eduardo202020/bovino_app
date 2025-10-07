@@ -280,6 +280,21 @@ export default function RegistroScreen() {
     Alert.alert('Ubicación Simulada', `Se ha seleccionado: ${randomLocation}`);
   };
 
+  const resetForm = () => {
+    setAnimalName('');
+    setBreed('');
+    setGender('');
+    setWeight('');
+    setDateOfBirth(new Date());
+    setRfidTag('');
+    setBirthLocation('');
+    setPhotos({
+      front: '',
+      rightSide: '',
+      leftSide: '',
+    });
+  };
+
   const handleSaveAnimal = () => {
     if (!animalName || !breed || !gender || !weight) {
       Alert.alert(
@@ -299,12 +314,14 @@ export default function RegistroScreen() {
       age,
       ageCategory: getAgeCategory(age),
       image:
+        photos.front ||
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDbV0kiLh_uyjQ0EkTL2kbtjFIMANFwlpwmThdbR_c8prLQn-NIjbCkRM7y44-IW_w-seY6rurBDdx7NPKohgvVnyodbEHa_ZvpRpnHlHyZ5wrp7rmoQGT9MdW51HxE9zyvYvbhV5C2uA6VMawNpS0sJI2AG7NBHUjEcuRJQrtUGO-tMyTEAVhqLHKffVKRDsmiOozQa5haGd1AmhSuDrp4QWu1jJG_pvNvOYfaPsC9ybzElGGv9wDdi6xK-roZ4LUus1muphYPHoE',
       gender,
       weight: `${weight} kg`,
       birthDate: dateOfBirth.toLocaleDateString('es-ES'),
       birthLocation: birthLocation || 'No especificada',
       rfidTag,
+      registrationDate: new Date().toISOString(), // Fecha y hora actual de registro
       photos: {
         front:
           photos.front ||
@@ -324,7 +341,7 @@ export default function RegistroScreen() {
       name: animalName,
       status: 'Activo',
       statusColor: '#10b981',
-      image: newAnimal.image,
+      image: photos.front || newAnimal.image,
       breed,
       age: `${age} años`,
       weight: `${weight} kg`,
@@ -355,10 +372,22 @@ export default function RegistroScreen() {
     mockAnimals.push(newAnimal);
     mockAnimalDetails[newAnimal.id] = newAnimalDetail;
 
+    const photoStatus = photos.front
+      ? 'Foto biométrica capturada'
+      : 'Usando foto por defecto';
+
+    // Resetear formulario después del registro exitoso
+    resetForm();
+
     Alert.alert(
-      'Animal Registrado',
-      `${animalName} ha sido registrado exitosamente con ID: ${newAnimal.id}.\n\nDatos guardados en memoria RAM.`,
-      [{ text: 'OK', onPress: () => navigation.goBack() }]
+      '✅ Animal Registrado',
+      `${animalName} ha sido registrado exitosamente:\n\n• ID: ${newAnimal.id}\n• ${photoStatus}\n• Datos guardados en memoria RAM\n\nSerás redirigido a la lista de animales donde aparecerá primero.`,
+      [
+        {
+          text: 'Ver Lista de Animales',
+          onPress: () => navigation.navigate('animales' as never),
+        },
+      ]
     );
   };
 

@@ -19,6 +19,7 @@ export interface Animal {
   birthDate?: string;
   birthLocation?: string;
   rfidTag?: string;
+  registrationDate?: string; // Nueva propiedad para ordenamiento
 }
 
 export interface AnimalDetail {
