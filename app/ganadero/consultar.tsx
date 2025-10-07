@@ -69,57 +69,59 @@ export default function ConsultarAnimalScreen() {
       </View>
 
       <ScrollView style={styles.main}>
-        {/* Search Section */}
-        <View style={styles.searchSection}>
-          <Text style={styles.sectionTitle}>Buscar Animal</Text>
-          <Text style={styles.sectionDescription}>
-            Ingresa el ID, nombre o raza del animal que deseas consultar
-          </Text>
-
-          <View style={styles.searchContainer}>
-            <MaterialIcons
-              name="search"
-              size={20}
-              color="#9ca3af"
-              style={styles.searchIcon}
-            />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Buscar por ID, nombre o raza..."
-              placeholderTextColor="#9ca3af"
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              onSubmitEditing={handleSearch}
-            />
-            {searchQuery ? (
-              <TouchableOpacity
-                style={styles.clearButton}
-                onPress={clearSearch}
-              >
-                <MaterialIcons name="clear" size={20} color="#9ca3af" />
-              </TouchableOpacity>
-            ) : null}
-          </View>
-
-          <TouchableOpacity
-            style={styles.searchButton}
-            onPress={handleSearch}
-            disabled={isSearching}
-          >
-            <MaterialIcons
-              name={isSearching ? 'hourglass-empty' : 'search'}
-              size={20}
-              color="#152111"
-            />
-            <Text style={styles.searchButtonText}>
-              {isSearching ? 'Buscando...' : 'Buscar'}
+        {/* Formulario de Búsqueda */}
+        <View style={styles.form}>
+          <View style={styles.formGroup}>
+            <Text style={styles.label}>Buscar Animal</Text>
+            <Text style={styles.description}>
+              Ingresa el ID, nombre o raza del animal que deseas consultar
             </Text>
-          </TouchableOpacity>
+
+            <View style={styles.searchContainer}>
+              <MaterialIcons
+                name="search"
+                size={20}
+                color="#9ca3af"
+                style={styles.searchIcon}
+              />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Buscar por ID, nombre o raza..."
+                placeholderTextColor="#9ca3af"
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                onSubmitEditing={handleSearch}
+              />
+              {searchQuery ? (
+                <TouchableOpacity
+                  style={styles.clearButton}
+                  onPress={clearSearch}
+                >
+                  <MaterialIcons name="clear" size={20} color="#9ca3af" />
+                </TouchableOpacity>
+              ) : null}
+            </View>
+
+            <TouchableOpacity
+              style={styles.searchButton}
+              onPress={handleSearch}
+              disabled={isSearching}
+            >
+              <MaterialIcons
+                name={isSearching ? 'hourglass-empty' : 'search'}
+                size={20}
+                color="#152111"
+              />
+              <Text style={styles.searchButtonText}>
+                {isSearching ? 'Buscando...' : 'Buscar'}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        {/* Quick Actions */}
-        <View style={styles.quickActionsSection}>
-          <Text style={styles.sectionTitle}>Acciones Rápidas</Text>
+        {/* Acciones Rápidas */}
+        <View style={styles.form}>
+          <Text style={styles.label}>Acciones Rápidas</Text>
           <View style={styles.quickActionsGrid}>
             <TouchableOpacity
               style={styles.quickActionCard}
@@ -186,10 +188,10 @@ export default function ConsultarAnimalScreen() {
           </View>
         </View>
 
-        {/* Search Results */}
+        {/* Resultados de Búsqueda */}
         {searchResults.length > 0 && (
-          <View style={styles.resultsSection}>
-            <Text style={styles.sectionTitle}>
+          <View style={styles.form}>
+            <Text style={styles.label}>
               Resultados ({searchResults.length})
             </Text>
 
@@ -233,15 +235,18 @@ export default function ConsultarAnimalScreen() {
           </View>
         )}
 
-        {/* No Results */}
+        {/* Sin Resultados */}
         {searchResults.length === 0 && searchQuery && !isSearching && (
-          <View style={styles.noResultsSection}>
-            <MaterialIcons name="search-off" size={64} color="#9ca3af" />
-            <Text style={styles.noResultsTitle}>Sin resultados</Text>
-            <Text style={styles.noResultsText}>
-              No se encontraron animales que coincidan con &ldquo;{searchQuery}
-              &rdquo;
-            </Text>
+          <View style={styles.form}>
+            <View style={styles.noResultsContainer}>
+              <MaterialIcons name="search-off" size={64} color="#9ca3af" />
+              <Text style={styles.noResultsTitle}>Sin resultados</Text>
+              <Text style={styles.noResultsText}>
+                No se encontraron animales que coincidan con &ldquo;
+                {searchQuery}
+                &rdquo;
+              </Text>
+            </View>
           </View>
         )}
       </ScrollView>
@@ -261,14 +266,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 50,
     paddingBottom: 16,
-    backgroundColor: 'rgba(246, 248, 246, 0.8)',
   },
   menuButton: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
   },
   headerTitle: {
     fontSize: 18,
@@ -282,22 +285,30 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
   },
-  searchSection: {
-    backgroundColor: '#ffffff',
-    padding: 20,
+  form: {
+    backgroundColor: '#fff',
     borderRadius: 12,
+    padding: 20,
     marginBottom: 20,
-    marginTop: 16,
+  },
+  formGroup: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#152111',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 14,
+    color: '#6b7280',
+    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#152111',
-    marginBottom: 8,
-  },
-  sectionDescription: {
-    fontSize: 14,
-    color: '#6b7280',
     marginBottom: 16,
   },
   searchContainer: {
@@ -314,7 +325,9 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 40,
     paddingVertical: 14,
-    backgroundColor: '#f3f4f6',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#f9fafb',
     borderRadius: 8,
     color: '#152111',
     fontSize: 16,
@@ -329,21 +342,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: '#94C973',
-    paddingVertical: 14,
+    backgroundColor: '#4cdf20',
+    paddingVertical: 16,
     borderRadius: 8,
+    marginTop: 4,
   },
   searchButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#152111',
   },
-  quickActionsSection: {
-    backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
+
   quickActionsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -365,12 +374,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     textAlign: 'center',
   },
-  resultsSection: {
-    backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
+
   resultsList: {
     gap: 16,
   },
@@ -428,12 +432,9 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontWeight: '500',
   },
-  noResultsSection: {
+  noResultsContainer: {
     alignItems: 'center',
-    padding: 40,
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    marginBottom: 20,
+    paddingVertical: 20,
   },
   noResultsTitle: {
     fontSize: 18,

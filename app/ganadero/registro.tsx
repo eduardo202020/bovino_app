@@ -1,9 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
+  Animated,
+  Image,
   Modal,
   Platform,
   ScrollView,
@@ -35,6 +39,13 @@ export default function RegistroScreen() {
     rightSide: '',
     leftSide: '',
   });
+
+  // Estados para biometría y captura de fotos
+  const [isProcessingBiometrics, setIsProcessingBiometrics] = useState(false);
+  const [currentPhotoType, setCurrentPhotoType] = useState('');
+  const [biometricProgress, setBiometricProgress] = useState(0);
+  const [fadeAnim] = useState(new Animated.Value(0));
+  const [scaleAnim] = useState(new Animated.Value(1));
 
   const onDateChange = (event: any, selectedDate: Date | undefined) => {
     const currentDate = selectedDate || dateOfBirth;
@@ -76,6 +87,170 @@ export default function RegistroScreen() {
     setShowPhotoModal(true);
   };
 
+  // Función para iniciar captura real de fotos
+  const handleRealPhotoCapture = async (
+    photoType: 'front' | 'rightSide' | 'leftSide'
+  ) => {
+    setCurrentPhotoType(photoType);
+    setShowPhotoModal(false);
+
+    // Mostrar opciones de cámara o galería
+    Alert.alert(
+      'Seleccionar foto',
+      `Captura la vista ${getPhotoTypeName(photoType)} del animal`,
+      [
+        {
+          text: 'Cámara',
+          onPress: () => takePicture(photoType),
+        },
+        {
+          text: 'Galería',
+          onPress: () => pickImage(photoType),
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+      ]
+    );
+  };
+
+  // Función auxiliar para nombres de fotos
+  const getPhotoTypeName = (type: string) => {
+    switch (type) {
+      case 'front':
+        return 'frontal';
+      case 'rightSide':
+        return 'lado derecho';
+      case 'leftSide':
+        return 'lado izquierdo';
+      default:
+        return 'del animal';
+    }
+  };
+
+  // Tomar foto con cámara
+  const takePicture = async (photoType: 'front' | 'rightSide' | 'leftSide') => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert(
+          'Error',
+          'Se necesitan permisos de cámara para esta función'
+        );
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
+
+      if (!result.canceled && result.assets[0]) {
+        await processBiometrics(result.assets[0].uri, photoType);
+      }
+    } catch {
+      Alert.alert('Error', 'No se pudo acceder a la cámara');
+    }
+  };
+
+  // Seleccionar imagen de galería
+  const pickImage = async (photoType: 'front' | 'rightSide' | 'leftSide') => {
+    try {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert(
+          'Error',
+          'Se necesitan permisos de galería para esta función'
+        );
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
+
+      if (!result.canceled && result.assets[0]) {
+        await processBiometrics(result.assets[0].uri, photoType);
+      }
+    } catch {
+      Alert.alert('Error', 'No se pudo acceder a la galería');
+    }
+  };
+
+  // Procesar biometría con efectos visuales
+  const processBiometrics = async (
+    imageUri: string,
+    photoType: 'front' | 'rightSide' | 'leftSide'
+  ) => {
+    setIsProcessingBiometrics(true);
+    setBiometricProgress(0);
+
+    // Animación de aparición
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    // Simulación de procesamiento biométrico
+    const steps = [
+      'Analizando estructura facial...',
+      'Detectando características únicas...',
+      'Procesando datos biométricos...',
+      'Creando perfil de identificación...',
+      'Almacenando en base de datos...',
+      'Finalizando proceso...',
+    ];
+
+    for (let i = 0; i < steps.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setBiometricProgress((i + 1) / steps.length);
+
+      // Efecto de pulso
+      Animated.sequence([
+        Animated.timing(scaleAnim, {
+          toValue: 1.1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+
+    // Guardar la imagen
+    setPhotos((prev) => ({
+      ...prev,
+      [photoType]: imageUri,
+    }));
+
+    // Animación de salida
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsProcessingBiometrics(false);
+      setBiometricProgress(0);
+
+      Alert.alert(
+        'Biometría Completada',
+        `Los datos biométricos ${getPhotoTypeName(photoType)} han sido procesados y almacenados exitosamente. El animal podrá ser identificado automáticamente en futuras detecciones.`,
+        [{ text: 'Continuar' }]
+      );
+    });
+  };
+
   const handleLocationSelector = () => {
     setShowLocationModal(true);
   };
@@ -90,18 +265,6 @@ export default function RegistroScreen() {
   };
 
   // Funciones mock para simulación
-  const handleMockPhotoCapture = () => {
-    setPhotos({
-      front: 'mock_front_image.jpg',
-      rightSide: 'mock_right_image.jpg',
-      leftSide: 'mock_left_image.jpg',
-    });
-    setShowPhotoModal(false);
-    Alert.alert(
-      'Fotos Simuladas',
-      'Se han simulado las 3 fotos del animal exitosamente.'
-    );
-  };
 
   const handleMockLocationSelect = () => {
     const mockLocations = [
@@ -337,6 +500,40 @@ export default function RegistroScreen() {
                 Capture 3 fotos del animal: frontal, lado derecho y lado
                 izquierdo
               </Text>
+
+              {/* Preview de fotos capturadas */}
+              {(photos.front || photos.rightSide || photos.leftSide) && (
+                <View style={styles.photoPreviewContainer}>
+                  {photos.front && (
+                    <View style={styles.photoPreviewItem}>
+                      <Image
+                        source={{ uri: photos.front }}
+                        style={styles.photoPreview}
+                      />
+                      <Text style={styles.photoPreviewLabel}>Frontal</Text>
+                    </View>
+                  )}
+                  {photos.rightSide && (
+                    <View style={styles.photoPreviewItem}>
+                      <Image
+                        source={{ uri: photos.rightSide }}
+                        style={styles.photoPreview}
+                      />
+                      <Text style={styles.photoPreviewLabel}>Lado Der.</Text>
+                    </View>
+                  )}
+                  {photos.leftSide && (
+                    <View style={styles.photoPreviewItem}>
+                      <Image
+                        source={{ uri: photos.leftSide }}
+                        style={styles.photoPreview}
+                      />
+                      <Text style={styles.photoPreviewLabel}>Lado Izq.</Text>
+                    </View>
+                  )}
+                </View>
+              )}
+
               <TouchableOpacity
                 style={styles.photoSelector}
                 onPress={handlePhotoCapture}
@@ -459,26 +656,145 @@ export default function RegistroScreen() {
             </TouchableOpacity>
           </View>
 
-          <View style={modalStyles.content}>
-            <MaterialIcons name="photo-camera" size={64} color="#6b7280" />
-            <Text style={modalStyles.message}>
-              Próximamente: Captura de fotos con cámara
-            </Text>
-            <Text style={modalStyles.description}>
-              Esta función permitirá capturar 3 fotos del animal:
-              {'\n'}- Vista frontal
-              {'\n'}- Lado derecho
-              {'\n'}- Lado izquierdo
-            </Text>
-            <TouchableOpacity
-              style={modalStyles.mockButton}
-              onPress={handleMockPhotoCapture}
-            >
-              <Text style={modalStyles.mockButtonText}>
-                Simular captura (Demo)
+          <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={modalStyles.content}
+          >
+            {/* Header del modal */}
+            <View style={modalStyles.modalHeader}>
+              <MaterialIcons name="photo-camera" size={48} color="#4cdf20" />
+              <Text style={modalStyles.message}>
+                Captura Biométrica de Fotos
               </Text>
-            </TouchableOpacity>
-          </View>
+              <Text style={modalStyles.description}>
+                Captura las 3 fotos del animal para crear su perfil biométrico
+                único.
+              </Text>
+            </View>
+
+            {/* Progreso de captura */}
+            <View style={modalStyles.progressContainer}>
+              <Text style={modalStyles.progressText}>
+                Progreso: {Object.values(photos).filter((p) => p).length}/3
+                fotos
+              </Text>
+              <View style={modalStyles.progressBar}>
+                <View
+                  style={[
+                    modalStyles.progressFill,
+                    {
+                      width: `${(Object.values(photos).filter((p) => p).length / 3) * 100}%`,
+                    },
+                  ]}
+                />
+              </View>
+            </View>
+
+            {/* Botones para cada tipo de foto - Diseño de 3 columnas */}
+            <View style={modalStyles.photoGridContainer}>
+              {/* Foto Frontal */}
+              <View style={modalStyles.photoColumnContainer}>
+                <TouchableOpacity
+                  style={[
+                    modalStyles.photoGridButton,
+                    photos.front && modalStyles.photoGridButtonCompleted,
+                  ]}
+                  onPress={() => handleRealPhotoCapture('front')}
+                >
+                  {photos.front ? (
+                    <Image
+                      source={{ uri: photos.front }}
+                      style={modalStyles.photoGridPreview}
+                    />
+                  ) : (
+                    <MaterialIcons
+                      name="photo-camera"
+                      size={40}
+                      color="#4cdf20"
+                    />
+                  )}
+                  {photos.front && (
+                    <View style={modalStyles.completedOverlay}>
+                      <MaterialIcons
+                        name="check-circle"
+                        size={24}
+                        color="#fff"
+                      />
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <Text style={modalStyles.photoGridLabel}>Frontal</Text>
+              </View>
+
+              {/* Foto Lado Derecho */}
+              <View style={modalStyles.photoColumnContainer}>
+                <TouchableOpacity
+                  style={[
+                    modalStyles.photoGridButton,
+                    photos.rightSide && modalStyles.photoGridButtonCompleted,
+                  ]}
+                  onPress={() => handleRealPhotoCapture('rightSide')}
+                >
+                  {photos.rightSide ? (
+                    <Image
+                      source={{ uri: photos.rightSide }}
+                      style={modalStyles.photoGridPreview}
+                    />
+                  ) : (
+                    <MaterialIcons
+                      name="photo-camera"
+                      size={40}
+                      color="#4cdf20"
+                    />
+                  )}
+                  {photos.rightSide && (
+                    <View style={modalStyles.completedOverlay}>
+                      <MaterialIcons
+                        name="check-circle"
+                        size={24}
+                        color="#fff"
+                      />
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <Text style={modalStyles.photoGridLabel}>Derecho</Text>
+              </View>
+
+              {/* Foto Lado Izquierdo */}
+              <View style={modalStyles.photoColumnContainer}>
+                <TouchableOpacity
+                  style={[
+                    modalStyles.photoGridButton,
+                    photos.leftSide && modalStyles.photoGridButtonCompleted,
+                  ]}
+                  onPress={() => handleRealPhotoCapture('leftSide')}
+                >
+                  {photos.leftSide ? (
+                    <Image
+                      source={{ uri: photos.leftSide }}
+                      style={modalStyles.photoGridPreview}
+                    />
+                  ) : (
+                    <MaterialIcons
+                      name="photo-camera"
+                      size={40}
+                      color="#4cdf20"
+                    />
+                  )}
+                  {photos.leftSide && (
+                    <View style={modalStyles.completedOverlay}>
+                      <MaterialIcons
+                        name="check-circle"
+                        size={24}
+                        color="#fff"
+                      />
+                    </View>
+                  )}
+                </TouchableOpacity>
+                <Text style={modalStyles.photoGridLabel}>Izquierdo</Text>
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </Modal>
 
@@ -566,6 +882,145 @@ export default function RegistroScreen() {
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
+      </Modal>
+
+      {/* Modal de Procesamiento Biométrico */}
+      <Modal
+        visible={isProcessingBiometrics}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => {}}
+      >
+        <View style={biometricStyles.overlay}>
+          <Animated.View
+            style={[
+              biometricStyles.container,
+              {
+                opacity: fadeAnim,
+                transform: [{ scale: scaleAnim }],
+              },
+            ]}
+          >
+            <View style={biometricStyles.content}>
+              {/* Icono de escáner biométrico */}
+              <View style={biometricStyles.scannerContainer}>
+                <MaterialIcons name="face" size={80} color="#4cdf20" />
+                <View style={biometricStyles.scanLines}>
+                  <Animated.View
+                    style={[
+                      biometricStyles.scanLine,
+                      {
+                        transform: [
+                          {
+                            translateY: fadeAnim.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [-40, 40],
+                            }),
+                          },
+                        ],
+                      },
+                    ]}
+                  />
+                </View>
+              </View>
+
+              {/* Texto de estado */}
+              <Text style={biometricStyles.title}>
+                Procesando Datos Biométricos
+              </Text>
+              <Text style={biometricStyles.subtitle}>
+                Analizando características del animal{' '}
+                {currentPhotoType
+                  ? `(${getPhotoTypeName(currentPhotoType)})`
+                  : ''}
+              </Text>
+
+              {/* Barra de progreso */}
+              <View style={biometricStyles.progressContainer}>
+                <View style={biometricStyles.progressBar}>
+                  <Animated.View
+                    style={[
+                      biometricStyles.progressFill,
+                      {
+                        width: `${biometricProgress * 100}%`,
+                      },
+                    ]}
+                  />
+                </View>
+                <Text style={biometricStyles.progressText}>
+                  {Math.round(biometricProgress * 100)}%
+                </Text>
+              </View>
+
+              {/* Indicadores de procesamiento */}
+              <View style={biometricStyles.indicators}>
+                <View style={biometricStyles.indicator}>
+                  <MaterialIcons
+                    name={
+                      biometricProgress > 0.2
+                        ? 'check-circle'
+                        : 'radio-button-unchecked'
+                    }
+                    size={16}
+                    color={biometricProgress > 0.2 ? '#4cdf20' : '#6b7280'}
+                  />
+                  <Text style={biometricStyles.indicatorText}>
+                    Estructura facial
+                  </Text>
+                </View>
+                <View style={biometricStyles.indicator}>
+                  <MaterialIcons
+                    name={
+                      biometricProgress > 0.4
+                        ? 'check-circle'
+                        : 'radio-button-unchecked'
+                    }
+                    size={16}
+                    color={biometricProgress > 0.4 ? '#4cdf20' : '#6b7280'}
+                  />
+                  <Text style={biometricStyles.indicatorText}>
+                    Características únicas
+                  </Text>
+                </View>
+                <View style={biometricStyles.indicator}>
+                  <MaterialIcons
+                    name={
+                      biometricProgress > 0.6
+                        ? 'check-circle'
+                        : 'radio-button-unchecked'
+                    }
+                    size={16}
+                    color={biometricProgress > 0.6 ? '#4cdf20' : '#6b7280'}
+                  />
+                  <Text style={biometricStyles.indicatorText}>
+                    Perfil biométrico
+                  </Text>
+                </View>
+                <View style={biometricStyles.indicator}>
+                  <MaterialIcons
+                    name={
+                      biometricProgress > 0.8
+                        ? 'check-circle'
+                        : 'radio-button-unchecked'
+                    }
+                    size={16}
+                    color={biometricProgress > 0.8 ? '#4cdf20' : '#6b7280'}
+                  />
+                  <Text style={biometricStyles.indicatorText}>
+                    Base de datos
+                  </Text>
+                </View>
+              </View>
+
+              {/* Loading spinner */}
+              <ActivityIndicator
+                size="large"
+                color="#4cdf20"
+                style={biometricStyles.spinner}
+              />
+            </View>
+          </Animated.View>
         </View>
       </Modal>
     </View>
@@ -766,6 +1221,32 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#6b7280',
   },
+  // Estilos para preview de fotos en el formulario
+  photoPreviewContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 16,
+    paddingVertical: 8,
+  },
+  photoPreviewItem: {
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 4,
+  },
+  photoPreview: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginBottom: 4,
+    borderWidth: 2,
+    borderColor: '#4cdf20',
+  },
+  photoPreviewLabel: {
+    fontSize: 10,
+    color: '#4cdf20',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   // Estilos para RFID
   rfidContainer: {
     flexDirection: 'row',
@@ -815,10 +1296,10 @@ const modalStyles = StyleSheet.create({
     padding: 8,
   },
   content: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 40,
+    flexGrow: 1,
   },
   message: {
     fontSize: 20,
@@ -840,11 +1321,47 @@ const modalStyles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   mockButtonText: {
-    color: '#152111',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  // Estilos adicionales para la reorganización del modal
+  modalHeader: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  progressContainer: {
+    width: '100%',
+    marginBottom: 15,
+    paddingHorizontal: 20,
+  },
+  progressText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#152111',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  progressBar: {
+    height: 6,
+    backgroundColor: '#e5e7eb',
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#4cdf20',
+    borderRadius: 3,
+  },
+  mockButtonContainer: {
+    marginTop: 20,
+    alignItems: 'center',
   },
   // Estilos para modal de razas
   breedList: {
@@ -871,5 +1388,200 @@ const modalStyles = StyleSheet.create({
   breedItemTextSelected: {
     fontWeight: 'bold',
     color: '#152111',
+  },
+  // Nuevos estilos para captura de fotos
+  photoButtonsContainer: {
+    marginTop: 20,
+    gap: 15,
+  },
+  photoButton: {
+    borderWidth: 2,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    padding: 16,
+    backgroundColor: '#ffffff',
+  },
+  photoButtonCompleted: {
+    borderColor: '#4cdf20',
+    backgroundColor: '#4cdf20',
+  },
+  photoButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  photoButtonText: {
+    flex: 1,
+  },
+  photoButtonTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#152111',
+  },
+  photoButtonTitleCompleted: {
+    color: '#ffffff',
+  },
+  photoButtonSubtitle: {
+    fontSize: 14,
+    color: '#6b7280',
+    marginTop: 4,
+  },
+  photoButtonSubtitleCompleted: {
+    color: '#f0fdf4',
+  },
+  photoPreview: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    marginLeft: 10,
+  },
+  // Estilos para el nuevo diseño de 3 columnas
+  photoGridContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 20,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  photoColumnContainer: {
+    flex: 1,
+    alignItems: 'center',
+    marginHorizontal: 4,
+    maxWidth: 120,
+  },
+  photoGridButton: {
+    aspectRatio: 1,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#f9fafb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    marginBottom: 8,
+    minHeight: 80,
+    maxHeight: 120,
+  },
+  photoGridButtonCompleted: {
+    borderColor: '#4cdf20',
+    backgroundColor: '#4cdf20',
+  },
+  photoGridPreview: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  },
+  photoGridLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#152111',
+    textAlign: 'center',
+  },
+  completedOverlay: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+    backgroundColor: '#4cdf20',
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+// Estilos para el modal biométrico
+const biometricStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 30,
+    margin: 20,
+    maxWidth: 350,
+    width: '90%',
+  },
+  content: {
+    alignItems: 'center',
+  },
+  scannerContainer: {
+    position: 'relative',
+    marginBottom: 20,
+  },
+  scanLines: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: 'hidden',
+  },
+  scanLine: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: 2,
+    backgroundColor: '#4cdf20',
+    shadowColor: '#4cdf20',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#152111',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#6b7280',
+    textAlign: 'center',
+    marginBottom: 25,
+  },
+  progressContainer: {
+    width: '100%',
+    marginBottom: 20,
+  },
+  progressBar: {
+    height: 8,
+    backgroundColor: '#e5e7eb',
+    borderRadius: 4,
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#4cdf20',
+    borderRadius: 4,
+  },
+  progressText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#152111',
+    textAlign: 'center',
+  },
+  indicators: {
+    width: '100%',
+    marginBottom: 20,
+  },
+  indicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 8,
+  },
+  indicatorText: {
+    fontSize: 14,
+    color: '#6b7280',
+  },
+  spinner: {
+    marginTop: 10,
   },
 });

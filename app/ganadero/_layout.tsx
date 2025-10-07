@@ -9,6 +9,7 @@ export default function GanaderoLayout() {
       <Stack.Screen name="registro" options={{ headerShown: false }} />
       <Stack.Screen name="estadisticas" options={{ headerShown: false }} />
       <Stack.Screen name="ajustes" options={{ headerShown: false }} />
+      <Stack.Screen name="consultar" options={{ headerShown: false }} />
     </Stack>
   );
 }
