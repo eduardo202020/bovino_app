@@ -104,6 +104,24 @@ npm install
 npx expo start
 ```
 
+## 🔐 Credenciales de prueba (hardcodeadas)
+
+Para facilitar el testing local, la app incluye dos cuentas de prueba hardcodeadas en `context/UserContext.tsx`.
+
+- **Administrador**
+   - Email: `admin@gmail.com`
+   - Contraseña: `admin123`
+   - Rol: `admin`
+
+- **Ganadero de prueba**
+   - Email: `ganadero@gmail.com`
+   - Contraseña: `ganadero123`
+   - Rol: `rancher`
+
+Además hay usuarios de ejemplo con datos en `constants/mockUsers.ts` (por ejemplo `juan@example.com`, `maria@example.com`, etc.), pero esas cuentas no están conectadas al flujo de autenticación por defecto.
+
+Si quieres que el login use directamente `mockUsers.ts` o que añada más cuentas de prueba, dímelo y lo actualizo.
+
 ## 📞 Soporte
 
 Para dudas sobre el desarrollo o generación del APK, revisar la documentación de Expo.
